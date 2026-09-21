@@ -9,6 +9,13 @@ export default function EnvelopeScreen({ config, onOpenComplete }) {
     if (isOpen) return;
     setIsOpen(true);
     triggerHeartConfetti();
+
+    // Force play all audio elements on the page instantly upon tap
+    const audios = document.querySelectorAll('audio');
+    audios.forEach((audio) => {
+      audio.play().catch(() => {});
+    });
+
     setTimeout(() => {
       onOpenComplete();
     }, 2400);
@@ -38,7 +45,7 @@ export default function EnvelopeScreen({ config, onOpenComplete }) {
         </h1>
         <div className="relative inline-block mt-1">
           <h2 className="font-cursive" style={{ fontSize: 'clamp(48px, 10vw, 68px)', color: 'var(--crimson-main)', lineHeight: 1.1 }}>
-            Wife
+            Saniya
           </h2>
         </div>
         <p className="font-garamond italic" style={{ fontSize: '16px', color: 'var(--ink-secondary)', marginTop: 6 }}>

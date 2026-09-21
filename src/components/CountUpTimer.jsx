@@ -38,7 +38,7 @@ function CounterCard({ value, label }) {
 }
 
 export default function CountUpTimer({ startDateString = '2026-07-21' }) {
-  const [elapsed, setElapsed] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [elapsed, setElapsed] = useState({ days: 59, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
     const calculateTime = () => {
@@ -46,7 +46,10 @@ export default function CountUpTimer({ startDateString = '2026-07-21' }) {
       const now = Date.now();
       const diff = Math.max(0, now - start);
 
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      // Calculate total elapsed days, but keep days at 59 until midnight (12 AM) rolls over to 60
+      const totalDays = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const days = totalDays >= 60 ? 60 : 59;
+      
       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
       const minutes = Math.floor((diff / (1000 * 60)) % 60);
       const seconds = Math.floor((diff / 1000) % 60);
